@@ -2,7 +2,6 @@ package lj.vgm.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import lj.vgm.VoidGenerators;
 import lj.vgm.lib.Reference;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;

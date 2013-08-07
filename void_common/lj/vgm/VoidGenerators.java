@@ -1,15 +1,12 @@
 package lj.vgm;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.client.MinecraftForgeClient;
 import lj.vgm.core.proxy.CommonProxy;
 import lj.vgm.creativetab.CreativeTabVGM;
 import lj.vgm.item.ModItems;
-import lj.vgm.lib.ItemIds;
 import lj.vgm.lib.Reference;
 import lj.vgm.network.PacketHandler;
 import lj.vgm.recipes.CraftingRecipes;
-import lj.vgm.render.ItemCapsuleRenderer;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.Init;
@@ -39,6 +36,6 @@ public class VoidGenerators {
     @Init
     public void init(FMLInitializationEvent event) {
         CraftingRecipes.init();
-        proxy.initRenderersAndTextures();
+        //proxy.initRenderersAndTextures();
     }
 }
