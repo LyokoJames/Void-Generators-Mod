@@ -1,7 +1,10 @@
 package lj.vgm.render;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraftforge.client.IItemRenderer;
 
@@ -24,12 +27,22 @@ public class ItemCapsuleRenderer implements IItemRenderer {
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         // Get icon index for the texture
         Icon itemIcon = item.getIconIndex();
-        // TODO FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+        FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
         // Use vanilla code to render the icon in a 16x16 square of inventory
         // slot
         renderItem.renderIcon(0, 0, itemIcon, 16, 16);
-        
-        //TODO Insert Tier Finidng and Rendering Code Here
-    }
 
+        NBTTagCompound nbt = item.getTagCompound();
+        String text = "0";
+        if (nbt != null) {
+            ItemStack capsuleStack = ItemStack.loadItemStackFromNBT(nbt);
+            int tier = nbt.getInteger("stackSize");
+            if (capsuleStack != null && tier > 0) {
+                tier = (int) Math.floor(Math.log(tier)/Math.log(2));
+                tier = Math.max(0, tier - 5);
+                text = Integer.toString(tier);
+            }
+        }
+        fontRenderer.drawStringWithShadow(text, 6, 4, 0xFFFF00);
+    }
 }

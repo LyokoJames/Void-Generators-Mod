@@ -1,8 +1,12 @@
 package lj.vgm.item;
 
+import java.util.List;
+
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -53,9 +57,39 @@ public class ItemItemCapsule extends ItemVGM {
     
     public void resetCapsuleStack(ItemStack itemStack) {
         NBTTagCompound nbt = new NBTTagCompound();
-        (new ItemStack(Item.bakedPotato, 1)).writeToNBT(nbt);
+        (new ItemStack(Block.blockClay, 1)).writeToNBT(nbt);
         nbt.setInteger("stackSize", 101);
         itemStack.setTagCompound(nbt);
+    }
+    
+    
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Override
+    public void addInformation(ItemStack itemStack, 
+            EntityPlayer player, List list, boolean par4) {
+        NBTTagCompound nbt = itemStack.getTagCompound();
+        boolean successful = false;
+        if (nbt != null) {
+            ItemStack capsuleStack = ItemStack.loadItemStackFromNBT(nbt);
+            int stackSize = nbt.getInteger("stackSize");
+            if (capsuleStack != null && stackSize > 0) {
+                list.add("Currently Storing: " + capsuleStack.getDisplayName());
+                String type;
+                if (capsuleStack.getItem() instanceof ItemBlock)
+                    type = "Block";
+                else type = "Item";
+                if (stackSize == 1) list.add("1 " + type + " Stored");
+                else list.add(stackSize + " " + type + "s Stored");
+                int tier = (int) Math.floor(Math.log(stackSize)/Math.log(2));
+                tier = Math.max(0, tier - 5);
+                list.add("Tier: " + tier);
+                successful = true;
+            }
+        }
+        if (!successful) {
+            list.add("No Items Stored");
+            list.add("Tier: 0");
+        }
     }
 
 }

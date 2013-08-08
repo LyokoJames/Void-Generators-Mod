@@ -36,6 +36,6 @@ public class VoidGenerators {
     @Init
     public void init(FMLInitializationEvent event) {
         CraftingRecipes.init();
-        //proxy.initRenderersAndTextures();
+        proxy.initRenderersAndTextures();
     }
 }
