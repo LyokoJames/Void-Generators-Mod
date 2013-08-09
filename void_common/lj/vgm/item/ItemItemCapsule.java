@@ -17,7 +17,6 @@ public class ItemItemCapsule extends ItemVGM {
 
     public ItemItemCapsule(int id) {
         super(id);
-        this.setCreativeTab(VoidGenerators.tabsVGM);
         this.setUnlocalizedName(Strings.ITEM_CAPSULE_UNLOC_NAME);
     }
     
