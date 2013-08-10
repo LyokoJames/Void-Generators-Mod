@@ -1,12 +1,7 @@
 package lj.vgm.render;
 
-import lj.vgm.lib.Strings;
+import lj.vgm.lib.Reference;
 import lj.vgm.model.VoidConduitModel;
-
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 
@@ -25,6 +20,6 @@ public class TileEntityVoidConduitRenderer extends TileEntityRendererVGM {
     
     @Override
     public void bindTextures(TileEntity te) {
-        bindTextureByName(Strings.BLOCK_TEXTURES_LOCATION + "/VoidConduitSingle.png");
+       bindTextureByName("/mods/vgm/textures/blocks/VoidConduitSingle.png");
     }
 }

@@ -1,8 +1,14 @@
 package lj.vgm.block;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import lj.vgm.lib.Reference;
+import lj.vgm.lib.Strings;
 import lj.vgm.tileentity.TileEntityVoidConduit;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -10,6 +16,7 @@ public class BlockVoidConduit extends ContainerVGM {
 
     protected BlockVoidConduit(int par1) {
         super(par1, Material.cloth);
+        this.setUnlocalizedName(Strings.VOID_CONDUIT_UNLOC_NAME);
     }
 
     @Override

@@ -1,5 +1,8 @@
 package lj.vgm.render;
 
+import java.io.File;
+
+import lj.vgm.lib.Reference;
 import lj.vgm.lib.Strings;
 
 import org.lwjgl.opengl.GL11;
@@ -28,7 +31,7 @@ public abstract class TileEntityRendererVGM extends TileEntitySpecialRenderer {
         //This is setting the initial location.
         GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
         //This is the texture of your block. It's pathed to be the same place as your other blocks here.
-        bindTextures(te);
+        bindTextureByName("/mods/vgm/textures/blocks/VoidConduitSingle.png");
         //This rotation part is very important! Without it, your model will render upside-down! And for some reason you DO need PushMatrix again!                       
         GL11.glPushMatrix();
         GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
@@ -41,12 +44,12 @@ public abstract class TileEntityRendererVGM extends TileEntitySpecialRenderer {
     }
     
     public void bindTextures(TileEntity te) {
-        bindTextureByName(getTextureDir(te));
+        //bindTextureByName(getTextureDir(te));
     }
 
-    public String getTextureDir(TileEntity te) {
-        return Strings.BLOCK_TEXTURES_LOCATION + te.getBlockType().getUnlocalizedName2();
-    }
+    //public String getTextureDir(TileEntity te) {
+        //TODO add dir
+    //}
 
     public abstract void renderBlock(TileEntity te, double x, double y, double z, float scale);
 
