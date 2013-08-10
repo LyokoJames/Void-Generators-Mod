@@ -59,15 +59,22 @@ public class VoidConduitModel extends ModelBase
       setRotation(Back, 0F, -1.570796F, 0F);
   }
   
-  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5,
+          boolean base, boolean top, boolean front, boolean back, boolean right, boolean left)
   {
     super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+    if (base)
     Base.render(f5);
+    if (left)
     Left.render(f5);
+    if (right)
     Top.render(f5);
+    if (front)
     Front.render(f5);
+    if (right)
     Right.render(f5);
+    if (back)
     Back.render(f5);
   }
   

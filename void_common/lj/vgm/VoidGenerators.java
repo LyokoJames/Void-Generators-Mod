@@ -7,7 +7,6 @@ import lj.vgm.creativetab.CreativeTabVGM;
 import lj.vgm.item.ModItems;
 import lj.vgm.lib.Reference;
 import lj.vgm.lib.Strings;
-import lj.vgm.network.PacketHandler;
 import lj.vgm.recipes.CraftingRecipes;
 import lj.vgm.tileentity.TileEntityVoidConduit;
 import cpw.mods.fml.common.Mod;
