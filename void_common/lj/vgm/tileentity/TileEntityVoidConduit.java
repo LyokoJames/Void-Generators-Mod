@@ -32,4 +32,9 @@ public class TileEntityVoidConduit extends TileEntity {
     public void setDirectionConnection(ForgeDirection dir, boolean set) {
         conduits.setDirectionConnection(dir, set);
     }
+    
+    @Override
+    public void updateEntity() {
+        
+    }
 }

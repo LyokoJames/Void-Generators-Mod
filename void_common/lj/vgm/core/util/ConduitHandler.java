@@ -7,6 +7,7 @@ public class ConduitHandler {
     public ConduitDirection[] conduits;
     
     public ConduitHandler() {
+        conduits = new ConduitDirection[6];
         conduits[0] = new ConduitDirection(ForgeDirection.DOWN);
         conduits[1] = new ConduitDirection(ForgeDirection.UP);
         conduits[2] = new ConduitDirection(ForgeDirection.NORTH);
@@ -36,6 +37,8 @@ public class ConduitHandler {
             conduits[1].setBasedOnDefaultOpposite();
             conduits[2].setBasedOnDefaultOpposite();
             conduits[3].setBasedOnDefaultOpposite();
+            conduits[4].setBasedOnDefault();
+            conduits[5].setBasedOnDefault();
         }
     }
     

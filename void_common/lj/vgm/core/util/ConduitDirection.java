@@ -12,7 +12,10 @@ public class ConduitDirection {
     }
     
     public void setBasedOnRotation(ForgeDirection rot) {
-        actualDir = rot.getRotation(defaultDir);
+        if(defaultDir == rot || defaultDir == rot.getOpposite())
+            actualDir = defaultDir;
+        else
+            actualDir = rot.getRotation(defaultDir);
     }
     
     public void setBasedOnDefault() {

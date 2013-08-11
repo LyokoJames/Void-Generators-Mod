@@ -1,5 +1,6 @@
 package lj.vgm.model;
 
+import lj.vgm.core.util.ConduitDirection;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -60,21 +61,21 @@ public class VoidConduitModel extends ModelBase
   }
   
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5,
-          boolean base, boolean top, boolean front, boolean back, boolean right, boolean left)
+          ConduitDirection[] render)
   {
     super.render(entity, f, f1, f2, f3, f4, f5);
     setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-    if (base)
+    if (render[0].connected)
     Base.render(f5);
-    if (left)
+    if (render[5].connected)
     Left.render(f5);
-    if (right)
+    if (render[1].connected)
     Top.render(f5);
-    if (front)
+    if (render[2].connected)
     Front.render(f5);
-    if (right)
+    if (render[4].connected)
     Right.render(f5);
-    if (back)
+    if (render[3].connected)
     Back.render(f5);
   }
   
