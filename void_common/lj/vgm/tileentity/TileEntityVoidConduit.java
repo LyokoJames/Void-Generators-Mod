@@ -14,15 +14,21 @@ public class TileEntityVoidConduit extends TileEntity {
     }
     
     @Override
-    public void writeToNBT(NBTTagCompound par1)
+    public void writeToNBT(NBTTagCompound nbt)
     {
-       super.writeToNBT(par1);
+       super.writeToNBT(nbt);
+       NBTTagCompound handler = new NBTTagCompound();
+       conduits.writeToNBT(handler);
+       nbt.setCompoundTag("handler", handler);
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound par1)
+    public void readFromNBT(NBTTagCompound nbt)
     {
-       super.readFromNBT(par1);
+       super.readFromNBT(nbt);
+       NBTTagCompound handler = nbt.getCompoundTag("handler");
+       if (handler != null)
+           conduits.readFromNBT(handler);
     }
     
     public void setConduitDirections(ForgeDirection baseDir) {
@@ -31,6 +37,10 @@ public class TileEntityVoidConduit extends TileEntity {
     
     public void setDirectionConnection(ForgeDirection dir, boolean set) {
         conduits.setDirectionConnection(dir, set);
+    }
+    
+    public boolean getDirectionConnection(ForgeDirection dir) {
+        return conduits.getDirectionConnection(dir);
     }
     
     @Override

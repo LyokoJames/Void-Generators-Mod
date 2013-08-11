@@ -1,5 +1,6 @@
 package lj.vgm.core.util;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeDirection;
 
 public class ConduitHandler {
@@ -14,6 +15,21 @@ public class ConduitHandler {
         conduits[3] = new ConduitDirection(ForgeDirection.SOUTH);
         conduits[4] = new ConduitDirection(ForgeDirection.WEST);
         conduits[5] = new ConduitDirection(ForgeDirection.EAST);
+    }
+    
+    public static ConduitDirection[] getDefaultConduits() {
+        ConduitDirection[] conduits = new ConduitDirection[6];
+        for (int i = 0; i < 6; i++) {
+            conduits[i].connected = false;
+        }
+        conduits[0].connected = true;
+        conduits[1].connected = true;
+        return conduits;
+    }
+    
+    public ConduitHandler(NBTTagCompound nbt) {
+        this();
+        readFromNBT(nbt);
     }
     
     public void setConduitsRelativeToBase(ForgeDirection baseDir) {
@@ -46,6 +62,34 @@ public class ConduitHandler {
         for(ConduitDirection conduit : conduits) {
             if (conduit.actualDir.equals(dir))
                 conduit.connected = set;
+        }
+    }
+    
+    public boolean getDirectionConnection(ForgeDirection dir) {
+        for(ConduitDirection conduit : conduits) {
+            if (conduit.actualDir.equals(dir))
+                return conduit.connected;
+        }
+        return false;
+    }
+    
+    public void writeToNBT(NBTTagCompound nbt) {
+        if (nbt != null) {
+            for (int i = 0; i < 6; i++) {
+                NBTTagCompound conduit = new NBTTagCompound();
+                conduits[i].writeToNBT(conduit);
+                nbt.setCompoundTag("conduit " + i, conduit);
+            }
+        }
+    }
+    
+    public void readFromNBT(NBTTagCompound nbt) {
+        if (nbt != null) {
+            for (int i = 0; i < 6; i++) {
+                NBTTagCompound conduit = nbt.getCompoundTag("conduit " + i);
+                if (conduit != null)
+                    conduits[i].readFromNBT(conduit);
+            }
         }
     }
 }

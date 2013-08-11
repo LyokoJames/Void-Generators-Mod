@@ -53,6 +53,9 @@ public class TileEntityVoidConduitRenderer extends TileEntityRendererVGM {
             this.model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F,
                     conduits);
         }
+        else
+            this.model.render((Entity)null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F,
+                    ConduitHandler.getDefaultConduits());
         GL11.glPopMatrix();
         
     }
