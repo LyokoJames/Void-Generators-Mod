@@ -1,5 +1,6 @@
 package lj.vgm.block;
 
+import lj.vgm.core.util.ConduitState;
 import lj.vgm.lib.Reference;
 import lj.vgm.lib.RenderIds;
 import lj.vgm.lib.Strings;
@@ -60,6 +61,8 @@ public class BlockVoidConduit extends ContainerVGM {
         
         
         TileEntityVoidConduit te = (TileEntityVoidConduit) world.getBlockTileEntity(x, y, z);
+        te.conduits[0].state = ConduitState.INPUT;
+        te.conduits[1].state = ConduitState.OUTPUT;
     }
     
     @Override
