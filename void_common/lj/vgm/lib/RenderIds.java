@@ -1,5 +1,5 @@
 package lj.vgm.lib;
 
 public class RenderIds {
-    public static int RENDER_TESTER;
+    public static int VOID_CONDUIT;
 }
