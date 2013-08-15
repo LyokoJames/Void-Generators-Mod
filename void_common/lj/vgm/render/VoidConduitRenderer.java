@@ -5,6 +5,7 @@ import lj.vgm.tileentity.TileEntityVoidConduit;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
@@ -23,6 +24,14 @@ public class VoidConduitRenderer implements
             Block block, int modelId, RenderBlocks renderer) {
         
         TileEntityVoidConduit te = (TileEntityVoidConduit) world.getBlockTileEntity(x, y, z);
+        
+        /*if (te == null) {
+            World worldObj = (World) world;
+            worldObj.setBlockTileEntity(x, y, z, block.createTileEntity(worldObj, 0));
+            //te = (TileEntityVoidConduit) worldObj.getBlockTileEntity(x, y, z);
+        }*/
+        
+        //te.syncTileEntity();
         
         //Render Center Block
         renderer.overrideBlockTexture = block.getIcon(0, 0);
