@@ -16,7 +16,7 @@ import cpw.mods.fml.common.network.Player;
 
 public class PacketTypeHandler {
 
-    public static void onVoidConduitPacket(INetworkManager manager,
+    public static void onConduitSyncPacket(INetworkManager manager,
             DataInputStream inputStream, Player player) throws IOException {
         int x = inputStream.readInt();
         int y = inputStream.readInt();
@@ -32,7 +32,22 @@ public class PacketTypeHandler {
         TileEntityVoidConduit te = (TileEntityVoidConduit) playerMP.worldObj.getBlockTileEntity(x, y, z);
         if(te != null){
             te.conduits = conduits;
+            if (!te.initialSync) te.initialSync = true;
             playerMP.worldObj.markBlockForUpdate(x, y, z);//this could also be the code to make a custom packet to send to all players
+        }
+    }
+
+    public static void onConduitRequestPacket(INetworkManager manager,
+            DataInputStream inputStream, Player player) throws IOException {
+        int x = inputStream.readInt();
+        int y = inputStream.readInt();
+        int z = inputStream.readInt();
+        
+        EntityPlayerMP playerMP = (EntityPlayerMP) player;
+        
+        TileEntityVoidConduit te = (TileEntityVoidConduit) playerMP.worldObj.getBlockTileEntity(x, y, z);
+        if(te != null){
+            te.serverSyncToClient();
         }
     }
 

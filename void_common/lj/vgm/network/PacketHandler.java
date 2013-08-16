@@ -7,6 +7,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import lj.vgm.core.util.ConduitState;
+import lj.vgm.lib.PacketStrings;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -27,15 +28,23 @@ public class PacketHandler implements IPacketHandler {
             packetType = inputStream.readUTF();
         }
         catch (IOException e) {
-            System.out.println("Error! Trace!");
             e.printStackTrace();
             return;
         }
-        //TODO change magic string to constant
+        
+        System.out.println("Packet with leading string: " + packetType + 
+                ", reeceived on channel: " + packet.channel);
         switch (packetType) {
-            case "voidConduit":
+            case PacketStrings.VOID_CONDUIT_SYNC:
                 try {
-                    PacketTypeHandler.onVoidConduitPacket (manager, inputStream,player);
+                    PacketTypeHandler.onConduitSyncPacket (manager, inputStream,player);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case PacketStrings.VOID_CONDUIT_REQUEST:
+                try {
+                    PacketTypeHandler.onConduitRequestPacket (manager, inputStream,player);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -46,23 +55,18 @@ public class PacketHandler implements IPacketHandler {
         }
     }
     
-    public static Packet dataToPacket(String channel, int length, Object... data){
+    public static Packet dataToPacket(String channel,Object... data){
+        int length = 0;
+        
+        for (Object object : data) {
+            length += getObjectByteSize(object);
+        }
+        
         ByteArrayOutputStream bos = new ByteArrayOutputStream(length);
         DataOutputStream outputStream = new DataOutputStream(bos);
         try {
-            for(Object object : data) {
-                if (object instanceof Integer) {
-                    outputStream.writeInt((int) object);
-                }
-                else if (object instanceof String) {
-                    outputStream.writeUTF((String) object);
-                }
-                else if (object instanceof ForgeDirection) {
-                    outputStream.writeInt(((ForgeDirection) object).ordinal());
-                }
-                else if (object instanceof ConduitState) {
-                    outputStream.writeInt(((ConduitState) object).ordinal());
-                }
+            for (Object object : data) {
+                writeObjectToPacket(object, outputStream);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -73,6 +77,45 @@ public class PacketHandler implements IPacketHandler {
         packet.data = bos.toByteArray();
         packet.length = bos.size();
         return packet;
+    }
+    
+    private static int getObjectByteSize(Object object) {
+        if (object instanceof Integer) {
+            return 4;
+        }
+        else if (object instanceof String) {
+            return ((String) object).length();
+        }
+        else if (object instanceof ForgeDirection) {
+            return 4;
+        }
+        else if (object instanceof ConduitState) {
+            return 4;
+        }
+        else {
+            System.err.println("Tried to get byte size of unknown object: "
+                    + object.getClass().toString());
+            return 0;
+        }
+    }
+    
+    private static void writeObjectToPacket(Object object, DataOutputStream outputStream) throws IOException {
+        if (object instanceof Integer) {
+            outputStream.writeInt((int) object);
+        }
+        else if (object instanceof String) {
+            outputStream.writeUTF((String) object);
+        }
+        else if (object instanceof ForgeDirection) {
+            outputStream.writeInt(((ForgeDirection) object).ordinal());
+        }
+        else if (object instanceof ConduitState) {
+            outputStream.writeInt(((ConduitState) object).ordinal());
+        }
+        else {
+            System.err.println("Tried to write unknown object to packet: "
+                    + object.getClass().toString());
+        }
     }
 
 }
