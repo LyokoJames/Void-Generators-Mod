@@ -61,8 +61,7 @@ public class BlockVoidConduit extends ContainerVGM {
         
         
         TileEntityVoidConduit te = (TileEntityVoidConduit) world.getBlockTileEntity(x, y, z);
-        te.conduits[0].state = ConduitState.INPUT;
-        te.conduits[1].state = ConduitState.OUTPUT;
+        te.determineConnections(direction);
     }
     
     @Override

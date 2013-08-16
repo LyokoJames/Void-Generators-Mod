@@ -23,6 +23,8 @@ public class VoidConduitRenderer implements
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z,
             Block block, int modelId, RenderBlocks renderer) {
         
+        //TODO insert brightness correction methods
+        
         TileEntityVoidConduit te = (TileEntityVoidConduit) world.getBlockTileEntity(x, y, z);
             te = (TileEntityVoidConduit) world.getBlockTileEntity(x, y, z);
             if (!te.initialSync) te.clientRequestServerSync();

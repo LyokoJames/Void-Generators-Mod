@@ -72,4 +72,52 @@ public class TileEntityVoidConduit extends TileEntity {
         }
         else System.out.println("Sever Requested Its own Sync!");
     }
+    
+    public void determineConnections(ForgeDirection dir) {
+        setSingleInput(dir);
+        setSingleOutput(dir.getOpposite());
+        
+        determineConnections();
+    }
+    
+    public void determineConnections() {
+        
+        for (int i = 0; i < 6; i++) {
+            TileEntity adjTe = worldObj.getBlockTileEntity(
+                    xCoord+ForgeDirection.getOrientation(i).offsetX, 
+                    yCoord+ForgeDirection.getOrientation(i).offsetY, 
+                    zCoord+ForgeDirection.getOrientation(i).offsetZ);
+            if (adjTe != null) {
+                if (adjTe instanceof TileEntityVoidConduit) {
+                    TileEntityVoidConduit adjVc = (TileEntityVoidConduit) adjTe;
+                    if (adjVc.conduits
+                            [ForgeDirection.getOrientation(i).getOpposite().ordinal()]
+                                    .state == ConduitState.OUTPUT) {
+                        setSingleInput(ForgeDirection.getOrientation(i));
+                    }
+                    if (adjVc.conduits
+                            [ForgeDirection.getOrientation(i).getOpposite().ordinal()]
+                                    .state == ConduitState.INPUT) {
+                        setSingleOutput(ForgeDirection.getOrientation(i));
+                    }
+                }
+            }
+        }
+    }
+    
+    public void setSingleInput(ForgeDirection dir) {
+        for (int i = 0; i < 6; i++) {
+            if (conduits[i].state == ConduitState.INPUT)
+                conduits[i].state = ConduitState.DISCONNECTED;
+        }
+        conduits[dir.ordinal()].state = ConduitState.INPUT;
+    }
+    
+    public void setSingleOutput(ForgeDirection dir) {
+        for (int i = 0; i < 6; i++) {
+            if (conduits[i].state == ConduitState.OUTPUT)
+                conduits[i].state = ConduitState.DISCONNECTED;
+        }
+        conduits[dir.ordinal()].state = ConduitState.OUTPUT;
+    }
 }
