@@ -26,6 +26,9 @@ public class Strings {
     public static final String[] VOID_CONDUIT_TEXTURE_NAMES = {
         "Center", "Input","Output", "InputInverted", "OutputInverted"
     };
+
+
+    public static final String ITEM_TOOL_UNLOC_NAME = "itemTool";
     
     
 }

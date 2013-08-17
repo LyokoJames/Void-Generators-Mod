@@ -1,0 +1,2 @@
+ANT build
+PAUSE

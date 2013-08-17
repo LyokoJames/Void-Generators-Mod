@@ -9,4 +9,16 @@ public class ConduitSide {
     public ConduitSide (ForgeDirection dir) {
         this.dir = dir;
     }
+
+    public void cycleState() {
+        if (state == ConduitState.DISCONNECTED) {
+            state = ConduitState.INPUT;
+        }
+        else if (state == ConduitState.INPUT) {
+            state = ConduitState.OUTPUT;
+        }
+        else if (state == ConduitState.OUTPUT) {
+            state = ConduitState.DISCONNECTED;
+        }
+    }
 }

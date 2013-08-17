@@ -73,7 +73,6 @@ public class VoidConduitRenderer implements
         
         if (te.conduits[3].state.isConnected()) {
         //Render South Face;
-        renderer.overrideBlockTexture = block.getIcon(0, 2);
         renderer.setRenderBounds(5d/16d, 5d/16d, 11d/16d,
                 11d/16d, 11d/16d, 1d);
         //Render East Separately
@@ -92,7 +91,6 @@ public class VoidConduitRenderer implements
         
         if (te.conduits[4].state.isConnected()) {
         //Render West Face
-        renderer.overrideBlockTexture = block.getIcon(0, 2);
         renderer.setRenderBounds(0d, 5d/16d, 5d/16d,
                 5d/16d, 11d/16d, 11d/16d);
         //Render North Seperately
@@ -111,13 +109,21 @@ public class VoidConduitRenderer implements
         
         if (te.conduits[5].state.isConnected()) {
         //Render East Face
-        renderer.overrideBlockTexture = te.conduits[5].state.isInput() ? 
-                block.getIcon(0, 1) : block.getIcon(0, 2);
         renderer.setRenderBounds(11d/16d, 5d/16d, 5d/16d,
                 1d, 11d/16, 11d/16d);
-        renderer.renderStandardBlock(block, x, y, z);
+      //Render North Seperately
+        renderer.overrideBlockTexture = te.conduits[4].state.isInput() ? 
+                block.getIcon(0, 1) : block.getIcon(0, 4);
+        renderer.renderFaceZNeg(block, x, y, z, block.getIcon(0, 0));
+        //Render Rest of Faces
+        renderer.overrideBlockTexture = te.conduits[4].state.isInput() ? 
+                block.getIcon(0, 1) : block.getIcon(0, 2);
+        renderer.renderFaceYPos(block, x, y, z, block.getIcon(0, 0));
+        renderer.renderFaceZPos(block, x, y, z, block.getIcon(0, 0));
+        renderer.renderFaceXNeg(block, x, y, z, block.getIcon(0, 0));
+        renderer.renderFaceYNeg(block, x, y, z, block.getIcon(0, 0));
+        renderer.renderFaceXPos(block, x, y, z, block.getIcon(0, 0));
         }
-        
         renderer.clearOverrideBlockTexture();
         return true;
     }

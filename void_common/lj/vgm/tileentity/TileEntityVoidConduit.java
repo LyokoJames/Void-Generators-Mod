@@ -3,6 +3,7 @@ package lj.vgm.tileentity;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
+import lj.vgm.block.ModBlocks;
 import lj.vgm.core.util.ConduitSide;
 import lj.vgm.core.util.ConduitState;
 import lj.vgm.lib.PacketStrings;
@@ -10,6 +11,7 @@ import lj.vgm.lib.Reference;
 import lj.vgm.network.PacketHandler;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.ForgeDirection;
 

@@ -23,6 +23,7 @@ public class BlockVoidConduit extends ContainerVGM {
     protected BlockVoidConduit(int par1) {
         super(par1, Material.cloth);
         this.setUnlocalizedName(Strings.VOID_CONDUIT_UNLOC_NAME);
+        this.setBlockBounds(4f/16f, 4f/16f, 4f/16f, 12f/16f, 12f/16f, 12f/16f);
     }
 
     @Override
@@ -35,6 +36,27 @@ public class BlockVoidConduit extends ContainerVGM {
     {
        return false;
     }
+    
+    /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
+        float minX = 5f/16f;
+        float minY = 5f/16f;
+        float minZ = 5f/16f;
+        float maxX = 11f/16f;
+        float maxY = 11f/16f;
+        float maxZ = 11f/16f;
+        
+        TileEntityVoidConduit teVc = (TileEntityVoidConduit) world.getBlockTileEntity(x, x, z);
+        if (teVc != null) {
+            minY -= teVc.conduits[0].state.isConnected() ? 5f/16f : 0f;
+            maxY += teVc.conduits[1].state.isConnected() ? 5f/16f : 0f;
+            minZ -= teVc.conduits[2].state.isConnected() ? 5f/16f : 0f;
+            maxZ += teVc.conduits[3].state.isConnected() ? 5f/16f : 0f;
+            minX -= teVc.conduits[4].state.isConnected() ? 5f/16f : 0f;
+            maxX += teVc.conduits[5].state.isConnected() ? 5f/16f : 0f;
+        }
+        
+        this.setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
+    }*/
     
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving, ItemStack itemStack) {
