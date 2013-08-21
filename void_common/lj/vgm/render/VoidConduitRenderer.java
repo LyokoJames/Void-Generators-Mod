@@ -112,11 +112,11 @@ public class VoidConduitRenderer implements
         renderer.setRenderBounds(11d/16d, 5d/16d, 5d/16d,
                 1d, 11d/16, 11d/16d);
       //Render North Seperately
-        renderer.overrideBlockTexture = te.conduits[4].state.isInput() ? 
+        renderer.overrideBlockTexture = te.conduits[5].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 4);
         renderer.renderFaceZNeg(block, x, y, z, block.getIcon(0, 0));
         //Render Rest of Faces
-        renderer.overrideBlockTexture = te.conduits[4].state.isInput() ? 
+        renderer.overrideBlockTexture = te.conduits[5].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 2);
         renderer.renderFaceYPos(block, x, y, z, block.getIcon(0, 0));
         renderer.renderFaceZPos(block, x, y, z, block.getIcon(0, 0));
