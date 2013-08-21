@@ -23,7 +23,7 @@ public class BlockVoidConduit extends ContainerVGM {
     protected BlockVoidConduit(int par1) {
         super(par1, Material.cloth);
         this.setUnlocalizedName(Strings.VOID_CONDUIT_UNLOC_NAME);
-        this.setBlockBounds(4f/16f, 4f/16f, 4f/16f, 12f/16f, 12f/16f, 12f/16f);
+        //this.setBlockBounds(4f/16f, 4f/16f, 4f/16f, 12f/16f, 12f/16f, 12f/16f);
     }
 
     @Override
