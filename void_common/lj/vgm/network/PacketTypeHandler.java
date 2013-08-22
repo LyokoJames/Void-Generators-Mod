@@ -6,6 +6,7 @@ import java.io.IOException;
 import lj.vgm.core.util.ConduitSide;
 import lj.vgm.core.util.ConduitState;
 import lj.vgm.tileentity.TileEntityVoidConduit;
+import lj.vgm.tileentity.VoidEnergyConductor;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
@@ -30,7 +31,7 @@ public class PacketTypeHandler {
 
         EntityClientPlayerMP playerMP = (EntityClientPlayerMP) player;
 
-        TileEntityVoidConduit te = (TileEntityVoidConduit) playerMP.worldObj.getBlockTileEntity(x, y, z);
+        VoidEnergyConductor te = (VoidEnergyConductor) playerMP.worldObj.getBlockTileEntity(x, y, z);
         if(te != null){
             te.conduits = conduits;
             if (!te.initialSync) te.initialSync = true;
@@ -46,7 +47,7 @@ public class PacketTypeHandler {
         
         EntityPlayerMP playerMP = (EntityPlayerMP) player;
         
-        TileEntityVoidConduit te = (TileEntityVoidConduit) playerMP.worldObj.getBlockTileEntity(x, y, z);
+        VoidEnergyConductor te = (VoidEnergyConductor) playerMP.worldObj.getBlockTileEntity(x, y, z);
         if(te != null){
             te.serverSyncToClient();
         }

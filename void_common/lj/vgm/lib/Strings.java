@@ -20,7 +20,7 @@ public class Strings {
     public static final String VOID_CONDUIT_UNLOC_NAME = "voidConduit";
 
 
-    public static final String VOID_CONDUIT_TILE_ENTITY = "voidEnergyConduitTileEntity";
+    public static final String VOID_CONDUIT_TILE_ENTITY = "voidConduitTileEntity";
 
 
     public static final String[] VOID_CONDUIT_TEXTURE_NAMES = {
@@ -29,6 +29,12 @@ public class Strings {
 
 
     public static final String ITEM_TOOL_UNLOC_NAME = "itemTool";
+
+
+    public static final String VOID_COLLECTOR_UNLOC_NAME = "voidCollector";
+
+
+    public static final String VOID_COLLECTOR_TILE_ENTITY = "voidCollectorTileEntity";
     
     
 }

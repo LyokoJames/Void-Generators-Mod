@@ -9,6 +9,7 @@ import lj.vgm.lib.Reference;
 import lj.vgm.lib.Strings;
 import lj.vgm.network.PacketHandler;
 import lj.vgm.recipes.CraftingRecipes;
+import lj.vgm.tileentity.ModTileEntities;
 import lj.vgm.tileentity.TileEntityVoidConduit;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -41,8 +42,7 @@ public class VoidGenerators {
     @Init
     public void init(FMLInitializationEvent event) {
         CraftingRecipes.init();
-        //TODO put method in another class
-        GameRegistry.registerTileEntity(TileEntityVoidConduit.class, Strings.VOID_CONDUIT_TILE_ENTITY);
+        ModTileEntities.init();
         proxy.initRenderersAndTextures();
     }
 }

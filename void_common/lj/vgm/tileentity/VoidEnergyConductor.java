@@ -28,11 +28,39 @@ public abstract class VoidEnergyConductor extends TileEntity{
         }
     }
     
+    public boolean isBlocked() {
+        return (this.voidEnergy >= this.maxVoidEnergy);
+    }
+    
     public void receiveEnergy(int energy) {
         voidEnergy = Math.min(voidEnergy + energy, maxVoidEnergy);
     }
-    public void sendEnergyToOutputs(int energy){
-        int divEnergy = (int) Math.floor((double) energy/(double) getNumOutputs());
+    public void sendEnergyToOutputs(int tryEnergy){
+        int energy = Math.min(voidEnergy,tryEnergy);
+        int divEnergy = (int) Math.floor((double) energy/(double) getNumOutputsConnectedToInputs());
+        for (int i = 0; i < 6; i++) {
+            if (conduits[i].state == ConduitState.OUTPUT) {
+                TileEntity adjTe = worldObj.getBlockTileEntity(
+                        xCoord+ForgeDirection.getOrientation(i).offsetX, 
+                        yCoord+ForgeDirection.getOrientation(i).offsetY, 
+                        zCoord+ForgeDirection.getOrientation(i).offsetZ);
+                if (adjTe != null) {
+                    if (adjTe instanceof VoidEnergyConductor) {
+                        VoidEnergyConductor adjVc = (VoidEnergyConductor) adjTe;
+                        if (adjVc.conduits
+                                [ForgeDirection.getOrientation(i).getOpposite().ordinal()]
+                                        .state == ConduitState.INPUT && !adjVc.isBlocked()) {
+                            voidEnergy -= divEnergy;
+                            adjVc.receiveEnergy(divEnergy);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private int getNumOutputsConnectedToInputs() {
+        int num = 0;
         for (int i = 0; i < 6; i++) {
             if (conduits[i].state == ConduitState.OUTPUT) {
                 TileEntity adjTe = worldObj.getBlockTileEntity(
@@ -45,14 +73,15 @@ public abstract class VoidEnergyConductor extends TileEntity{
                         if (adjVc.conduits
                                 [ForgeDirection.getOrientation(i).getOpposite().ordinal()]
                                         .state == ConduitState.INPUT) {
-                            adjVc.receiveEnergy(divEnergy);
+                            num++;
                         }
                     }
                 }
             }
         }
+        return num;
     }
-    
+
     public int getNumOutputs() {
         int numOut = 0;
         for (int i = 0; i < 6; i++) {

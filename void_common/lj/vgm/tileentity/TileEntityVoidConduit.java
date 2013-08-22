@@ -54,5 +54,11 @@ public class TileEntityVoidConduit extends VoidEnergyConductor {
         }
     }
     
+    @Override
+    public void updateEntity() {
+        System.out.println(voidEnergy);
+        this.sendEnergyToOutputs(maxVoidEnergy);
+    }
+    
     
 }
