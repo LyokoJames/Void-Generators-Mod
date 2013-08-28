@@ -35,6 +35,12 @@ public abstract class VoidEnergyConductor extends TileEntity{
     public void receiveEnergy(int energy) {
         voidEnergy = Math.min(voidEnergy + energy, maxVoidEnergy);
     }
+    
+    public void useEnergy(int energy) {
+        voidEnergy = Math.max(voidEnergy - energy, 0);
+    }
+    
+    
     public void sendEnergyToOutputs(int tryEnergy){
         int energy = Math.min(voidEnergy,tryEnergy);
         int divEnergy = (int) Math.floor((double) energy/(double) getNumOutputsConnectedToInputs());

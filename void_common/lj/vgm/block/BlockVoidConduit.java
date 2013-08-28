@@ -1,6 +1,5 @@
 package lj.vgm.block;
 
-import lj.vgm.core.util.ConduitState;
 import lj.vgm.core.util.DirectionHelper;
 import lj.vgm.lib.Reference;
 import lj.vgm.lib.RenderIds;
@@ -12,8 +11,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 

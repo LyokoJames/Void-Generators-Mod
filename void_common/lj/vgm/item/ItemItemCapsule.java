@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -54,8 +55,8 @@ public class ItemItemCapsule extends ItemVGM {
     
     public void resetCapsuleStack(ItemStack itemStack) {
         NBTTagCompound nbt = new NBTTagCompound();
-        (new ItemStack(Block.blockClay, 1)).writeToNBT(nbt);
-        nbt.setInteger("stackSize", 101);
+        (new ItemStack(Item.axeDiamond, 1)).writeToNBT(nbt);
+        nbt.setInteger("stackSize", 12);
         itemStack.setTagCompound(nbt);
     }
     

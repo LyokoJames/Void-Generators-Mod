@@ -35,6 +35,12 @@ public class Strings {
 
 
     public static final String VOID_COLLECTOR_TILE_ENTITY = "voidCollectorTileEntity";
+
+
+    public static final String VOID_LAMP_UNLOC_NAME = "voidLamp";
+
+
+    public static final String VOID_LAMP_TILE_ENTITY = "voidLampTileEntity";
     
     
 }
