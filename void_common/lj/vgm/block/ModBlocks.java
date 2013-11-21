@@ -22,6 +22,7 @@ public class ModBlocks {
         GameRegistry.registerBlock(voidEnergyLamp, Strings.VOID_LAMP_UNLOC_NAME);
         
         LanguageRegistry.addName(voidEnergyCollector, "VEC");
+        LanguageRegistry.addName(voidEnergyLamp, "VEL");
     }
 
 }
