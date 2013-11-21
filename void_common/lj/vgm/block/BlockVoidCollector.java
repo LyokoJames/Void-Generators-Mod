@@ -2,7 +2,6 @@ package lj.vgm.block;
 
 import lj.vgm.lib.Strings;
 import lj.vgm.tileentity.TileEntityVoidCollector;
-import lj.vgm.tileentity.TileEntityVoidConduit;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

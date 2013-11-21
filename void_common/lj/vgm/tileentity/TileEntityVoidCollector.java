@@ -2,7 +2,6 @@
 
 import lj.vgm.core.util.ConduitState;
 import lj.vgm.lib.Numbers;
-import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityVoidCollector extends VoidEnergyConductor {
     
