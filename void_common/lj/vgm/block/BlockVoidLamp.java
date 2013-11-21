@@ -4,6 +4,7 @@ import lj.vgm.lib.Strings;
 import lj.vgm.tileentity.TileEntityVoidLamp;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockVoidLamp extends ContainerVGM {
@@ -18,16 +19,15 @@ public class BlockVoidLamp extends ContainerVGM {
         return new TileEntityVoidLamp();
     }
     
-    /*@Override
+    @Override
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        TileEntityVoidLamp te = (TileEntityVoidLamp) world.getBlockTileEntity(x, y, z);
-        if (te != null)
-            return te.on ? 15 : 0;
-        else return 0;
+        TileEntity te =  world.getBlockTileEntity(x, y, z);
+        if (te != null) {
+            if (te instanceof TileEntityVoidLamp)
+                return ((TileEntityVoidLamp) te).on ? 14 : 0;
+        }
+        return 0;
     }
-
-}
-    }*/
     //TODO Fix this thing
 
 }
