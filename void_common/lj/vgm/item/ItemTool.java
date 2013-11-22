@@ -1,11 +1,9 @@
 package lj.vgm.item;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import lj.vgm.lib.Strings;
 import lj.vgm.tileentity.TileEntityVoidConduit;
 

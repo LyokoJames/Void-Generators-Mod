@@ -4,7 +4,6 @@ import lj.vgm.core.util.ConduitState;
 
 public class TileEntityVoidLamp extends VoidEnergyConductor {
     
-    public boolean on = false;
     int timer = 0;
     
     public TileEntityVoidLamp() {
@@ -21,13 +20,13 @@ public class TileEntityVoidLamp extends VoidEnergyConductor {
             timer = 10;
         }
         if (timer > 0) {
-            this.on = true;
-            this.worldObj.updateAllLightTypes(xCoord, yCoord, zCoord);
+            this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
+                    1, 2);
             timer--;
         }
         else {
-            this.on = false;
-            this.worldObj.updateAllLightTypes(xCoord, yCoord, zCoord);
+            this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
+                    0, 2);
         }
     }
 }

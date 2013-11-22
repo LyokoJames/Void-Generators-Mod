@@ -5,14 +5,10 @@ import java.io.IOException;
 
 import lj.vgm.core.util.ConduitSide;
 import lj.vgm.core.util.ConduitState;
-import lj.vgm.tileentity.TileEntityVoidConduit;
 import lj.vgm.tileentity.VoidEnergyConductor;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.common.network.Player;
 

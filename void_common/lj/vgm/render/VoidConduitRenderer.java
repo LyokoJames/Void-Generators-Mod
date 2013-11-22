@@ -5,8 +5,6 @@ import lj.vgm.tileentity.TileEntityVoidConduit;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class VoidConduitRenderer implements
