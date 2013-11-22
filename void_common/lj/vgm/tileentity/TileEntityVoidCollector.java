@@ -18,7 +18,9 @@ public class TileEntityVoidCollector extends VoidEnergyConductor {
     public void updateEntity() {
         if (counter <= 0) {
             this.receiveEnergy(1);
-            this.sendEnergyToOutputs(1);
+            System.out.println("Collector Before: " + voidEnergy);
+            this.sendEnergyToOutputs(maxVoidEnergy);
+            System.out.println("Collector After: " + voidEnergy);
             counter = 9;
         }
         else counter--;

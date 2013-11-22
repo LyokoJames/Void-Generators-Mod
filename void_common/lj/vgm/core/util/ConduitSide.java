@@ -21,4 +21,13 @@ public class ConduitSide {
             state = ConduitState.DISCONNECTED;
         }
     }
+    
+    public void flipState(){
+        if (state == ConduitState.INPUT) {
+            state = ConduitState.OUTPUT;
+        }
+        else if (state == ConduitState.OUTPUT) {
+            state = ConduitState.INPUT;
+        }
+    }
 }

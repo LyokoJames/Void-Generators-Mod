@@ -45,8 +45,14 @@ public class TileEntityVoidConduit extends VoidEnergyConductor {
     
     @Override
     public void updateEntity() {
-        System.out.println(voidEnergy);
+        System.out.println("Conduit: " + voidEnergy);
         this.sendEnergyToOutputs(maxVoidEnergy);
+    }
+
+    public void flipStates() {
+        for (int i = 0; i < 6; i++) {
+            conduits[i].flipState();
+        }
     }
     
     

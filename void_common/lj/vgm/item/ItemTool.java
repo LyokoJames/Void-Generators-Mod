@@ -21,7 +21,9 @@ public class ItemTool extends ItemVGM {
         TileEntity te = world.getBlockTileEntity(x, y, z);
         if (te != null) {
             if (te instanceof TileEntityVoidConduit) {
-                ((TileEntityVoidConduit) te).conduits[side].cycleState();
+                if (par2EntityPlayer.isSneaking())
+                    ((TileEntityVoidConduit) te).flipStates();
+                else ((TileEntityVoidConduit) te).conduits[side].cycleState();
                 ((TileEntityVoidConduit) te).serverSyncToClient();
             }
         }
