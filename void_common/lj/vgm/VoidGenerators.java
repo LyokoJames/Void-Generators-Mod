@@ -17,6 +17,7 @@ import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
 @NetworkMod(channels = { Reference.CHANNEL_NAME }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
@@ -38,8 +39,10 @@ public class VoidGenerators {
     
     @Init
     public void init(FMLInitializationEvent event) {
+        NetworkRegistry.instance().registerGuiHandler(instance, proxy);
         CraftingRecipes.init();
         ModTileEntities.init();
         proxy.initRenderersAndTextures();
+        
     }
 }

@@ -8,5 +8,6 @@ public class ModTileEntities {
         GameRegistry.registerTileEntity(TileEntityVoidConduit.class, Strings.VOID_CONDUIT_TILE_ENTITY);
         GameRegistry.registerTileEntity(TileEntityVoidCollector.class, Strings.VOID_COLLECTOR_TILE_ENTITY);
         GameRegistry.registerTileEntity(TileEntityVoidLamp.class, Strings.VOID_LAMP_TILE_ENTITY);
+        GameRegistry.registerTileEntity(TileEntityVoidFurnace.class, Strings.VOID_FURNACE_TILE_ENTITY);
     }
 }

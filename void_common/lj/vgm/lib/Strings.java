@@ -41,6 +41,15 @@ public class Strings {
 
 
     public static final String VOID_LAMP_TILE_ENTITY = "voidLampTileEntity";
+
+
+    public static final String VOID_FURNACE_UNLOC_NAME = "voidFurnace";
+
+
+    public static final String CONTAINER_VOID_FURNACE_NAME = "containerVoidFurnace";
+
+
+    public static final String VOID_FURNACE_TILE_ENTITY = "voidFurnaceTileEntity";
     
     public static String[] VOID_LAMP_TEXTURE_NAMES = {"voidLampUnlit", "voidLampLit"};
 }
