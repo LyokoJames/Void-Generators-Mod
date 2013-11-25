@@ -30,6 +30,11 @@ public class GuiVoidFurnace extends GuiContainer {
         int xStart = (width - xSize) / 2;
         int yStart = (height - ySize) / 2;
         this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
+        int ve;
+        
+        ve = (int) Math.round(((double)this.voidFurnaceTE.voidEnergy / (double) this.voidFurnaceTE.maxVoidEnergy * 52));
+        
+        this.drawTexturedModalRect(xStart + 18,yStart + 69 - ve, 176, 84 - ve, 16, ve);
     }
 
 }

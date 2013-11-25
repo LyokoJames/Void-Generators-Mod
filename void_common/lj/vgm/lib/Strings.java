@@ -50,6 +50,9 @@ public class Strings {
 
 
     public static final String VOID_FURNACE_TILE_ENTITY = "voidFurnaceTileEntity";
+
+
+    public static final String[] VOID_FURNACE_TEXTURE_NAMES = {"voidFurnaceTop", "voidFurnaceSide","voidFurnaceLit", "voidFurnaceUnlit"};
     
     public static String[] VOID_LAMP_TEXTURE_NAMES = {"voidLampUnlit", "voidLampLit"};
 }

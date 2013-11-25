@@ -18,24 +18,24 @@ public class ContainerVoidFurnace extends Container {
         voidFurnaceTE = tileEntityVoidFurnace;
         
      // Add the fuel slot to the container
-        this.addSlotToContainer(new Slot(voidFurnaceTE, TileEntityVoidFurnace.FUEL_INVENTORY_INDEX, 56, 62));
+        this.addSlotToContainer(new Slot(voidFurnaceTE, TileEntityVoidFurnace.FUEL_INVENTORY_INDEX, 56, 53));
 
         // Add the input slot to the container
         this.addSlotToContainer(new Slot(voidFurnaceTE, TileEntityVoidFurnace.INPUT_INVENTORY_INDEX, 56, 17));
 
         // Add the output results slot to the container
-        this.addSlotToContainer(new Slot(voidFurnaceTE, TileEntityVoidFurnace.OUTPUT_INVENTORY_INDEX, 116, 35));
+        this.addSlotToContainer(new SlotVoidFurnace(voidFurnaceTE, TileEntityVoidFurnace.OUTPUT_INVENTORY_INDEX, 116, 35));
         
      // Add the player's inventory slots to the container
         for (int inventoryRowIndex = 0; inventoryRowIndex < PLAYER_INVENTORY_ROWS; ++inventoryRowIndex) {
             for (int inventoryColumnIndex = 0; inventoryColumnIndex < PLAYER_INVENTORY_COLUMNS; ++inventoryColumnIndex) {
-                this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 44 + inventoryColumnIndex * 18, 104 + inventoryRowIndex * 18));
+                this.addSlotToContainer(new Slot(inventoryPlayer, inventoryColumnIndex + inventoryRowIndex * 9 + 9, 8 + inventoryColumnIndex * 18, 84 + inventoryRowIndex * 18));
             }
         }
 
         // Add the player's action bar slots to the container
         for (int actionBarSlotIndex = 0; actionBarSlotIndex < PLAYER_INVENTORY_COLUMNS; ++actionBarSlotIndex) {
-            this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 44 + actionBarSlotIndex * 18, 162));
+            this.addSlotToContainer(new Slot(inventoryPlayer, actionBarSlotIndex, 8 + actionBarSlotIndex * 18, 142));
         }
     }
     
