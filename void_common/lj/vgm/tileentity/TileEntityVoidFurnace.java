@@ -18,6 +18,8 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
     public static final int INPUT_INVENTORY_INDEX = 1;
     public static final int OUTPUT_INVENTORY_INDEX = 2;
     
+    public static final int TOTAL_BURN_TIME = 1000;
+    
     public TileEntityVoidFurnace() {
         //TODO Remove Magic Number
         super(64);
@@ -156,4 +158,6 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
         nbtTagCompound.setTag("Items", tagList);
 
     }
+    
+    
 }

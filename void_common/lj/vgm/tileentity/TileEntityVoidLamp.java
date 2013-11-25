@@ -22,12 +22,12 @@ public class TileEntityVoidLamp extends VoidEnergyConductor {
         }
         if (timer > 0) {
             this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
-                    1, 2);
+                    1, 3);
             timer--;
         }
         else {
             this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
-                    0, 2);
+                    0, 3);
         }
     }
 }
