@@ -30,11 +30,23 @@ public class GuiVoidFurnace extends GuiContainer {
         int xStart = (width - xSize) / 2;
         int yStart = (height - ySize) / 2;
         this.drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
-        int ve;
+        int i1;
         
-        ve = (int) Math.round(((double)this.voidFurnaceTE.voidEnergy / (double) this.voidFurnaceTE.maxVoidEnergy * 52));
+        i1 = (int) Math.round(((double)this.voidFurnaceTE.voidEnergy / (double) this.voidFurnaceTE.maxVoidEnergy * 52));
         
-        this.drawTexturedModalRect(xStart + 18,yStart + 69 - ve, 176, 84 - ve, 16, ve);
+        this.drawTexturedModalRect(xStart + 18,yStart + 69 - i1, 176, 84 - i1, 16, i1);
+        
+        if (voidFurnaceTE.isBurning())
+        {
+            i1 = voidFurnaceTE.currentBurnTime * 12 / TileEntityVoidFurnace.TOTAL_BURN_TIME;
+            this.drawTexturedModalRect(xStart + 56, yStart + 36 + 12 - i1, 176,
+                    12 - i1, 14, i1 + 2);
+        }
+        
+        i1 = voidFurnaceTE.currentCookTime * 24 / TileEntityVoidFurnace.TOTAL_COOK_TIME;
+        this.drawTexturedModalRect(xStart + 79, yStart + 34, 176, 14, i1 + 1, 16);
+        
+        
     }
 
 }

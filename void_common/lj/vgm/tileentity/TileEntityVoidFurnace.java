@@ -1,8 +1,11 @@
 package lj.vgm.tileentity;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import lj.vgm.core.util.ConduitState;
@@ -18,7 +21,14 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
     public static final int INPUT_INVENTORY_INDEX = 1;
     public static final int OUTPUT_INVENTORY_INDEX = 2;
     
+    public static final int COOK_VOID_ENERGY = 64;
+    
+    public static final int TOTAL_COOK_TIME = 1000;
     public static final int TOTAL_BURN_TIME = 1000;
+    
+    public boolean isBurning = false;
+    public int currentBurnTime = 0;
+    public int currentCookTime = 0;
     
     public TileEntityVoidFurnace() {
         //TODO Remove Magic Number
@@ -28,7 +38,116 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
         }
         inventory = new ItemStack[INVENTORY_SIZE];
     }
+    
+    @Override
+    public void updateEntity() {
+        boolean flag = this.currentBurnTime > 0;
+        boolean flag1 = false;
+        
+        System.out.println("Furnace " + 
+        ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) ?
+                "Client :" : "Server :" )+ voidEnergy);
+        
+        if (this.currentBurnTime > 0)
+        {
+            --this.currentBurnTime;
+        }
 
+        if (!this.worldObj.isRemote)
+        {
+            if (this.currentBurnTime == 0 && this.canSmelt())
+            {
+                if (this.voidEnergy >= TileEntityVoidFurnace.COOK_VOID_ENERGY) {
+                    this.useEnergy(COOK_VOID_ENERGY);
+                    System.out.println("Furnace " + 
+                            ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) ?
+                                    "Client :" : "Server :" )+ voidEnergy);
+                    this.serverSyncToClient();
+                    this.currentBurnTime = TileEntityVoidFurnace.TOTAL_BURN_TIME;
+                }
+            }
+
+            if (this.isBurning() && this.canSmelt())
+            {
+                ++this.currentCookTime;
+
+                if (this.currentCookTime >= TileEntityVoidFurnace.TOTAL_COOK_TIME)
+                {
+                    this.currentCookTime = 0;
+                    this.smeltItem();
+                    flag1 = true;
+                }
+            }
+            else
+            {
+                this.currentBurnTime = 0;
+            }
+
+            if (flag != this.currentBurnTime > 0)
+            {
+                flag1 = true;
+                int currentMeta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+                if (this.isBurning() && currentMeta < 6)
+                    worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
+                            currentMeta + 4, 3);
+                else if (this.isBurning() && currentMeta > 5)
+                    worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
+                            currentMeta - 4, 3);
+            }
+        }
+
+        if (flag1)
+        {
+            this.onInventoryChanged();
+        }
+    }
+    
+    public boolean isBurning() {
+        return currentBurnTime > 0;
+    }
+    
+    public void smeltItem()
+    {
+        if (this.canSmelt())
+        {
+            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(
+                    this.inventory[INPUT_INVENTORY_INDEX]);
+
+            if (inventory[OUTPUT_INVENTORY_INDEX] == null)
+            {
+                this.inventory[OUTPUT_INVENTORY_INDEX] = itemstack.copy();
+            }
+            else if (this.inventory[OUTPUT_INVENTORY_INDEX].isItemEqual(itemstack))
+            {
+                inventory[OUTPUT_INVENTORY_INDEX].stackSize += itemstack.stackSize;
+            }
+
+            --this.inventory[INPUT_INVENTORY_INDEX].stackSize;
+
+            if (this.inventory[INPUT_INVENTORY_INDEX].stackSize <= 0)
+            {
+                this.inventory[INPUT_INVENTORY_INDEX] = null;
+            }
+        }
+    }
+
+    private boolean canSmelt()
+    {
+        if (inventory[INPUT_INVENTORY_INDEX] == null)
+        {
+            return false;
+        }
+        else
+        {
+            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(inventory[INPUT_INVENTORY_INDEX]);
+            if (itemstack == null) return false;
+            if (inventory[OUTPUT_INVENTORY_INDEX] == null) return true;
+            if (!inventory[OUTPUT_INVENTORY_INDEX].isItemEqual(itemstack)) return false;
+            int result =inventory[OUTPUT_INVENTORY_INDEX].stackSize + itemstack.stackSize;
+            return (result <= getInventoryStackLimit() && result <= itemstack.getMaxStackSize());
+        }
+    }
+    
     @Override
     public int getSizeInventory() {
 

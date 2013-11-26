@@ -14,6 +14,7 @@ public class TileEntityVoidLamp extends VoidEnergyConductor {
         }
     }
     
+    @Override
     public void updateEntity() {
         System.out.println("Lamp: " + voidEnergy);
         if (this.voidEnergy > 0 && timer < 1) {

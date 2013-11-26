@@ -24,12 +24,14 @@ public class PacketTypeHandler {
             conduits[i] = new ConduitSide(ForgeDirection.getOrientation(i));
             conduits[i].state = ConduitState.fromInt(inputStream.readInt());
         }
+        int ve = inputStream.readInt();
 
         EntityClientPlayerMP playerMP = (EntityClientPlayerMP) player;
 
         VoidEnergyConductor te = (VoidEnergyConductor) playerMP.worldObj.getBlockTileEntity(x, y, z);
         if(te != null){
             te.conduits = conduits;
+            te.voidEnergy = ve;
             if (!te.initialSync) te.initialSync = true;
             playerMP.worldObj.markBlockForUpdate(x, y, z);//this could also be the code to make a custom packet to send to all players
         }

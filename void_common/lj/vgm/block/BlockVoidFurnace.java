@@ -1,7 +1,5 @@
 package lj.vgm.block;
 
-import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import lj.vgm.VoidGenerators;
@@ -11,7 +9,6 @@ import lj.vgm.lib.Strings;
 import lj.vgm.tileentity.TileEntityVoidFurnace;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -74,6 +71,7 @@ public class BlockVoidFurnace extends ContainerVGM {
         if (meta == 0 & side == 3)return icons[3];
         else if(side == 1 || side == 0) return icons[0];
         else if (side == meta) return icons[3];
+        else if (meta > 5 && side + 4 == meta) return icons[2];
         else return icons[1];
     }
     

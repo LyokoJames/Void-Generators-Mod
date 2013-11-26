@@ -38,6 +38,9 @@ public abstract class VoidEnergyConductor extends TileEntity{
     
     public void useEnergy(int energy) {
         voidEnergy = Math.max(voidEnergy - energy, 0);
+        System.out.println("Just Used on" + 
+                ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) ?
+                        "Client :" : "Server :" )+ voidEnergy + " Void Energy");
     }
     
     
@@ -154,7 +157,7 @@ public abstract class VoidEnergyConductor extends TileEntity{
                     Reference.CHANNEL_NAME, PacketStrings.VOID_CONDUIT_SYNC,
                     this.xCoord, this.yCoord, this.zCoord,
                     conduits[0].state,conduits[1].state,conduits[2].state,
-                    conduits[3].state,conduits[4].state,conduits[5].state));
+                    conduits[3].state,conduits[4].state,conduits[5].state,voidEnergy));
             if (!this.initialSync) this.initialSync = true;
         }
         else System.err.println("syncFromServerToClient in TileEntityVoidConduit called from"
