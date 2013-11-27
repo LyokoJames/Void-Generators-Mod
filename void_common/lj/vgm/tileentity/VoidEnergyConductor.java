@@ -40,9 +40,15 @@ public abstract class VoidEnergyConductor extends TileEntity{
         voidEnergy = Math.max(voidEnergy - energy, 0);
         System.out.println("Just Used on" + 
                 ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) ?
-                        "Client :" : "Server :" )+ voidEnergy + " Void Energy");
+                        "Client :" : "Server :" )+ energy + " Void Energy");
     }
     
+    @Override
+    public void updateEntity() {
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+            if (!initialSync)
+                this.clientRequestServerSync();
+    }
     
     public void sendEnergyToOutputs(int tryEnergy){
         int energy = Math.min(voidEnergy,tryEnergy);
@@ -137,6 +143,7 @@ public abstract class VoidEnergyConductor extends TileEntity{
        for (int i = 0; i < 6; i++) {
            nbt.setInteger("state"+i, conduits[i].state.ordinal());
        }
+       nbt.setInteger("VE", voidEnergy);
        serverSyncToClient();
     }
 
@@ -147,6 +154,7 @@ public abstract class VoidEnergyConductor extends TileEntity{
        for (int i = 0; i < 6; i++) {
            conduits[i].state = ConduitState.fromInt(nbt.getInteger("state"+i));
        }
+       voidEnergy = nbt.getInteger("VE");
        serverSyncToClient();
     }
     

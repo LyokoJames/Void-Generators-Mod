@@ -49,7 +49,12 @@ public class PacketHandler implements IPacketHandler {
                     e.printStackTrace();
                 }
                 break;
-                
+            case PacketStrings.VOID_FURNACE_SYNC:
+                try {
+                    PacketTypeHandler.onFurnaceSyncPacket (manager, inputStream,player);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             default:
                 break;
         }

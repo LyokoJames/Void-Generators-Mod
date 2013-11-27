@@ -25,7 +25,7 @@ public class VoidConduitRenderer implements
         
         TileEntityVoidConduit te = (TileEntityVoidConduit) world.getBlockTileEntity(x, y, z);
             te = (TileEntityVoidConduit) world.getBlockTileEntity(x, y, z);
-            if (!te.initialSync) te.clientRequestServerSync();
+            //if (!te.initialSync) te.clientRequestServerSync();
         
         //Render Center Block
         renderer.overrideBlockTexture = block.getIcon(0, 0);

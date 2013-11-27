@@ -41,6 +41,7 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
     
     @Override
     public void updateEntity() {
+        super.updateEntity();
         boolean flag = this.currentBurnTime > 0;
         boolean flag1 = false;
         
@@ -257,6 +258,9 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
                 inventory[slot] = ItemStack.loadItemStackFromNBT(tagCompound);
             }
         }
+        
+        currentBurnTime = nbtTagCompound.getInteger("burnT");
+        currentCookTime = nbtTagCompound.getInteger("cookT");
     }
 
     @Override
@@ -276,6 +280,8 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
         }
         nbtTagCompound.setTag("Items", tagList);
 
+        nbtTagCompound.setInteger("burnT", currentBurnTime);
+        nbtTagCompound.setInteger("cookT", currentCookTime);
     }
     
     

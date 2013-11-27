@@ -1,5 +1,7 @@
 package lj.vgm.tileentity;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import lj.vgm.core.util.ConduitState;
 import lj.vgm.lib.Numbers;
 import net.minecraft.tileentity.TileEntity;
@@ -45,6 +47,7 @@ public class TileEntityVoidConduit extends VoidEnergyConductor {
     
     @Override
     public void updateEntity() {
+        super.updateEntity();
         System.out.println("Conduit: " + voidEnergy);
         this.sendEnergyToOutputs(maxVoidEnergy);
     }

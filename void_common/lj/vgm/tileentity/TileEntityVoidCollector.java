@@ -1,5 +1,7 @@
  package lj.vgm.tileentity;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import lj.vgm.core.util.ConduitState;
 import lj.vgm.lib.Numbers;
 
@@ -16,6 +18,7 @@ public class TileEntityVoidCollector extends VoidEnergyConductor {
     
     @Override
     public void updateEntity() {
+        super.updateEntity();
         if (counter <= 0) {
             this.receiveEnergy(1);
             System.out.println("Collector Before: " + voidEnergy);
