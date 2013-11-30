@@ -46,6 +46,7 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
     @Override
     public void updateEntity() {
         super.updateEntity();
+        if (!this.worldObj.isRemote) {
         boolean flag = this.currentBurnTime > 0;
         boolean flag1 = false;
         
@@ -104,6 +105,8 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
         if (flag1)
         {
             this.onInventoryChanged();
+        }
+        this.serverSyncToClient();
         }
     }
     

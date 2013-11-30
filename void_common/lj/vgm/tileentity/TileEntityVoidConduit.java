@@ -48,8 +48,10 @@ public class TileEntityVoidConduit extends VoidEnergyConductor {
     @Override
     public void updateEntity() {
         super.updateEntity();
+        if (!this.worldObj.isRemote) {
         System.out.println("Conduit: " + voidEnergy);
         this.sendEnergyToOutputs(maxVoidEnergy);
+        }
     }
 
     public void flipStates() {
