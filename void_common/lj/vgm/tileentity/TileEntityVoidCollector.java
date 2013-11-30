@@ -19,14 +19,16 @@ public class TileEntityVoidCollector extends VoidEnergyConductor {
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if (counter <= 0) {
-            this.receiveEnergy(1);
-            System.out.println("Collector Before: " + voidEnergy);
-            this.sendEnergyToOutputs(maxVoidEnergy);
-            System.out.println("Collector After: " + voidEnergy);
-            counter = 9;
+        if (!this.worldObj.isRemote) {
+            if (counter <= 0) {
+                this.receiveEnergy(1);
+                System.out.println("Collector Before: " + voidEnergy);
+                this.sendEnergyToOutputs(maxVoidEnergy);
+                System.out.println("Collector After: " + voidEnergy);
+                counter = 9;
+            }
+            else counter--;
         }
-        else counter--;
     }
 
 }
