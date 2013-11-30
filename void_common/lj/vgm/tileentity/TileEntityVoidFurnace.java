@@ -1,6 +1,7 @@
 package lj.vgm.tileentity;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -9,7 +10,10 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import lj.vgm.core.util.ConduitState;
+import lj.vgm.lib.PacketStrings;
+import lj.vgm.lib.Reference;
 import lj.vgm.lib.Strings;
+import lj.vgm.network.PacketHandler;
 
 public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInventory {
 
@@ -236,6 +240,16 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
     public void closeChest() {
         // TODO Auto-generated method stub
         
+    }
+    
+    public void serverSyncToClient() {
+        super.serverSyncToClient();
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+            PacketDispatcher.sendPacketToAllPlayers(PacketHandler.dataToPacket(
+                    Reference.CHANNEL_NAME, PacketStrings.VOID_FURNACE_SYNC,
+                    this.xCoord, this.yCoord, this.zCoord,
+                    currentBurnTime, currentCookTime));
+        }
     }
 
     @Override
