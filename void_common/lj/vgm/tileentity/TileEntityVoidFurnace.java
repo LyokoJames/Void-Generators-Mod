@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import lj.vgm.block.BlockVoidFurnace;
 import lj.vgm.core.util.ConduitState;
 import lj.vgm.lib.PacketStrings;
 import lj.vgm.lib.Reference;
@@ -92,13 +93,7 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
             if (flag != this.currentBurnTime > 0)
             {
                 flag1 = true;
-                int currentMeta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-                if (this.isBurning() && currentMeta < 6)
-                    worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
-                            currentMeta + 4, 3);
-                else if (this.isBurning() && currentMeta > 5)
-                    worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
-                            currentMeta - 4, 3);
+                BlockVoidFurnace.updateFurnaceBlockState(isBurning(), worldObj, xCoord, yCoord, zCoord);
             }
         }
 

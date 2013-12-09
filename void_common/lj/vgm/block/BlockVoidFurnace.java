@@ -7,6 +7,7 @@ import lj.vgm.lib.GuiIds;
 import lj.vgm.lib.Reference;
 import lj.vgm.lib.Strings;
 import lj.vgm.tileentity.TileEntityVoidFurnace;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLiving;
@@ -96,6 +97,28 @@ public class BlockVoidFurnace extends ContainerVGM {
 
         world.setBlockMetadataWithNotify(x, y, z, direction, 3);
         //TODO Replace with Direction Helper
+    }
+    
+    public static void updateFurnaceBlockState(boolean isBurning, World worldObj, int xCoord, int yCoord, int zCoord)
+    {
+        int currentMeta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        TileEntity tileentity = worldObj.getBlockTileEntity(xCoord, yCoord, zCoord);
+        //keepFurnaceInventory = true;
+
+        if (isBurning && currentMeta < 6)
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
+                    currentMeta + 4, 3);
+        else if (isBurning && currentMeta > 5)
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
+                    currentMeta - 4, 3);
+
+        //keepFurnaceInventory = false;
+
+        if (tileentity != null)
+        {
+            tileentity.validate();
+            worldObj.setBlockTileEntity(xCoord, yCoord, zCoord, tileentity);
+        }
     }
 
 }
