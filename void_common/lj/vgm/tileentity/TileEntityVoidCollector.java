@@ -1,7 +1,5 @@
  package lj.vgm.tileentity;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import lj.vgm.core.util.ConduitState;
 import lj.vgm.lib.Numbers;
 

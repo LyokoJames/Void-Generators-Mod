@@ -1,5 +1,6 @@
 package lj.vgm.render;
 
+import lj.vgm.core.util.ExtendedItemStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -35,9 +36,9 @@ public class ItemCapsuleRenderer implements IItemRenderer {
         NBTTagCompound nbt = item.getTagCompound();
         String text = "0";
         if (nbt != null) {
-            ItemStack capsuleStack = ItemStack.loadItemStackFromNBT(nbt);
-            int tier = nbt.getInteger("stackSize");
-            if (capsuleStack != null && tier > 0) {
+            ExtendedItemStack capsuleStack = ExtendedItemStack.loadExtendedItemStackFromNBT(nbt);
+            if (capsuleStack != null && capsuleStack.isValid()) {
+                int tier = capsuleStack.stackSize;
                 tier = (int) Math.floor(Math.log(tier)/Math.log(2));
                 tier = Math.max(0, tier - 5);
                 text = Integer.toString(tier);

@@ -10,6 +10,20 @@ public class ExtendedItemStack {
     public int stackSize;
     public NBTTagCompound stackTagCompound;
     
+    public ExtendedItemStack () {
+    }
+    
+    public ExtendedItemStack (ItemStack itemStack, int stackSize){
+        this.itemID = itemStack.itemID;
+        this.itemDamage = itemStack.getItemDamage();
+        this.stackSize = stackSize;
+        stackTagCompound = itemStack.getTagCompound();
+    }
+    
+    public ExtendedItemStack (ItemStack itemStack) {
+        this(itemStack, itemStack.stackSize);
+    }
+    
     
     public static ExtendedItemStack loadExtendedItemStackFromNBT(NBTTagCompound par0NBTTagCompound)
     {
@@ -56,6 +70,57 @@ public class ExtendedItemStack {
         }
 
         return par1NBTTagCompound;
+    }
+    
+    public ExtendedItemStack copy()
+    {
+        ExtendedItemStack itemstack = new ExtendedItemStack((new ItemStack(this.itemID, 0, this.itemDamage)),this.stackSize);
+
+        if (this.stackTagCompound != null)
+        {
+            itemstack.stackTagCompound = (NBTTagCompound)this.stackTagCompound.copy();
+        }
+
+        return itemstack;
+    }
+    
+    public ExtendedItemStack splitStack(int par1)
+    {
+        ExtendedItemStack itemstack = this.copy();
+        itemstack.stackSize = Math.min(this.stackSize, par1);
+        
+        
+        this.stackSize -= Math.min(this.stackSize, par1);
+        return itemstack;
+    }
+    
+    public ItemStack intoRegularStack()
+    {
+        if (!this.isValid()) return null;
+        if (this.stackSize <= 64) {
+            return (new ItemStack(this.itemID,this.stackSize,this.itemDamage));
+        }
+        else {
+            return (new ItemStack(this.itemID,64,this.itemDamage));
+        }
+    }
+    
+    public String getDisplayName()
+    {
+        ItemStack regularThis = this.intoRegularStack();
+        String s = this.getItem().getItemDisplayName(regularThis);
+
+        if (this.stackTagCompound != null && this.stackTagCompound.hasKey("display"))
+        {
+            NBTTagCompound nbttagcompound = this.stackTagCompound.getCompoundTag("display");
+
+            if (nbttagcompound.hasKey("Name"))
+            {
+                s = nbttagcompound.getString("Name");
+            }
+        }
+
+        return s;
     }
 
 

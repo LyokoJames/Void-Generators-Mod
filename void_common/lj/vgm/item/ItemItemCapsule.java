@@ -4,11 +4,12 @@ import java.util.List;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import lj.vgm.block.ModBlocks;
+import lj.vgm.core.util.ExtendedItemStack;
 import lj.vgm.lib.Strings;
 
 public class ItemItemCapsule extends ItemVGM {
@@ -25,37 +26,33 @@ public class ItemItemCapsule extends ItemVGM {
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (itemStack.getTagCompound() != null) {
             NBTTagCompound nbt = itemStack.getTagCompound();
-            ItemStack capsuleStack = ItemStack.loadItemStackFromNBT(nbt);
-            int stackSize = nbt.getInteger("stackSize");
+            ExtendedItemStack capsuleStack = ExtendedItemStack.loadExtendedItemStackFromNBT(nbt);
             nbt = new NBTTagCompound();
-            if (capsuleStack != null && stackSize > 0) {
-                int droppedStack = Math.min(10, stackSize);
-                stackSize -= droppedStack;
+            if (capsuleStack != null && capsuleStack.isValid()) {
+                ExtendedItemStack droppedStack = capsuleStack.splitStack(10); 
                 capsuleStack.writeToNBT(nbt);
-                nbt.setInteger("stackSize", stackSize);
                 if (!world.isRemote)
                     world.spawnEntityInWorld(new EntityItem(world, player.posX,
                             player.posY, player.posZ,
-                            new ItemStack(capsuleStack.getItem(), droppedStack)));
+                            droppedStack.intoRegularStack()));
             }
-            else {
-                (new ItemStack(0,0,0)).writeToNBT(nbt);
-                nbt.setInteger("stackSize", 0);
-            }
+            //else {
+             //   (new ItemStack(0,0,0)).writeToNBT(nbt);
+             //   nbt.setInteger("stackSize", 0);
+            //}
             itemStack.setTagCompound(nbt);
         }
-        else {
-            NBTTagCompound nbt = new NBTTagCompound();
-            (new ItemStack(0,0,0)).writeToNBT(nbt);
-            nbt.setInteger("stackSize", 0);
-        }
+        //else {
+          //  NBTTagCompound nbt = new NBTTagCompound();
+          //  (new ItemStack(0,0,0)).writeToNBT(nbt);
+          //  nbt.setInteger("stackSize", 0);
+        //}
         return itemStack;
     }
     
     public void resetCapsuleStack(ItemStack itemStack) {
         NBTTagCompound nbt = new NBTTagCompound();
-        (new ItemStack(Item.axeDiamond, 1)).writeToNBT(nbt);
-        nbt.setInteger("stackSize", 12);
+        (new ExtendedItemStack((new ItemStack(ModBlocks.voidEnergyLamp, 0)), 128)).writeToNBT(nbt);
         itemStack.setTagCompound(nbt);
     }
     
@@ -67,17 +64,16 @@ public class ItemItemCapsule extends ItemVGM {
         NBTTagCompound nbt = itemStack.getTagCompound();
         boolean successful = false;
         if (nbt != null) {
-            ItemStack capsuleStack = ItemStack.loadItemStackFromNBT(nbt);
-            int stackSize = nbt.getInteger("stackSize");
-            if (capsuleStack != null && stackSize > 0) {
+            ExtendedItemStack capsuleStack = ExtendedItemStack.loadExtendedItemStackFromNBT(nbt);
+            if (capsuleStack != null && capsuleStack.isValid()) {
                 list.add("Currently Storing: " + capsuleStack.getDisplayName());
                 String type;
                 if (capsuleStack.getItem() instanceof ItemBlock)
                     type = "Block";
                 else type = "Item";
-                if (stackSize == 1) list.add("1 " + type + " Stored");
-                else list.add(stackSize + " " + type + "s Stored");
-                int tier = (int) Math.floor(Math.log(stackSize)/Math.log(2));
+                if (capsuleStack.stackSize == 1) list.add("1 " + type + " Stored");
+                else list.add(capsuleStack.stackSize + " " + type + "s Stored");
+                int tier = (int) Math.floor(Math.log(capsuleStack.stackSize)/Math.log(2));
                 tier = Math.max(0, tier - 5);
                 list.add("Tier: " + tier);
                 successful = true;
