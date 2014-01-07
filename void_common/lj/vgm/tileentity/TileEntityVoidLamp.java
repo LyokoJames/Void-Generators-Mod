@@ -1,5 +1,6 @@
 package lj.vgm.tileentity;
 
+import lj.vgm.block.BlockVoidLamp;
 import lj.vgm.core.util.ConduitState;
 
 public class TileEntityVoidLamp extends VoidEnergyConductor {
@@ -18,18 +19,26 @@ public class TileEntityVoidLamp extends VoidEnergyConductor {
     public void updateEntity() {
         super.updateEntity();
         System.out.println("Lamp: " + voidEnergy);
-        if (this.voidEnergy > 0 && timer < 1) {
-            useEnergy(1);
-            timer = 10;
+        if (!this.worldObj.isRemote) {
+            boolean l = isLit();
+        
+            if (timer > 0) {
+                timer--;
+            }
+            
+            if (this.voidEnergy > 0 && timer < 1) {
+                useEnergy(1);
+                timer = 10;
+            }
+            
+        if (isLit() != l) {
+            BlockVoidLamp.updateLampBlockState(isLit(), worldObj, xCoord,yCoord,zCoord);
         }
-        if (timer > 0) {
-            this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
-                    1, 3);
-            timer--;
+        
         }
-        else {
-            this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
-                    0, 3);
-        }
+    }
+    
+    private boolean isLit() {
+        return timer > 0;
     }
 }

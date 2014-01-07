@@ -28,8 +28,8 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
     
     public static final int COOK_VOID_ENERGY = 64;
     
-    public static final int TOTAL_COOK_TIME = 1000;
-    public static final int TOTAL_BURN_TIME = 1000;
+    public static final int TOTAL_COOK_TIME = 200;
+    public static final int TOTAL_BURN_TIME = 400;
     
     public boolean isBurning = false;
     public int currentBurnTime = 0;
@@ -69,7 +69,6 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
                     System.out.println("Furnace " + 
                             ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) ?
                                     "Client :" : "Server :" )+ voidEnergy);
-                    this.serverSyncToClient();
                     this.currentBurnTime = TileEntityVoidFurnace.TOTAL_BURN_TIME;
                 }
             }
@@ -87,13 +86,13 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
             }
             else
             {
-                this.currentBurnTime = 0;
+                this.currentCookTime = 0;
             }
 
             if (flag != this.currentBurnTime > 0)
             {
                 flag1 = true;
-                BlockVoidFurnace.updateFurnaceBlockState(isBurning(), worldObj, xCoord, yCoord, zCoord);
+                BlockVoidFurnace.updateFurnaceBlockState(isBurning(), worldObj, xCoord, xCoord, zCoord);
             }
         }
 

@@ -48,4 +48,23 @@ public class BlockVoidLamp extends ContainerVGM {
             return icons[meta];
         else return icons[0];
     }
+    
+    public static void updateLampBlockState(boolean isLit, World worldObj, int xCoord, int yCoord, int zCoord)
+    {
+        TileEntity tileentity = worldObj.getBlockTileEntity(xCoord, yCoord, zCoord);
+        //keepFurnaceInventory = true;
+
+        if (isLit)
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+        else
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 3);
+
+        //keepFurnaceInventory = false;
+
+        if (tileentity != null)
+        {
+            tileentity.validate();
+            worldObj.setBlockTileEntity(xCoord, yCoord, zCoord, tileentity);
+        }
+    }
 }
