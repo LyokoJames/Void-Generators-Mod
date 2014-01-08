@@ -1,5 +1,6 @@
  package lj.vgm.tileentity;
 
+import net.minecraft.nbt.NBTTagCompound;
 import lj.vgm.core.util.ConduitState;
 import lj.vgm.lib.Numbers;
 
@@ -28,6 +29,18 @@ public class TileEntityVoidCollector extends VoidEnergyConductor {
                 counter = 9;
             }
         }
+    }
+    
+    @Override
+    public void readFromNBT(NBTTagCompound nbtTagCompound) {
+        super.readFromNBT(nbtTagCompound);
+        counter = nbtTagCompound.getInteger("Counter");
+    }
+    
+    @Override
+    public void writeToNBT(NBTTagCompound nbtTagCompound) {
+        super.writeToNBT(nbtTagCompound);
+        nbtTagCompound.setInteger("Counter", counter);
     }
 
 }

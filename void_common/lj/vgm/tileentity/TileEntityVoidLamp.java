@@ -1,5 +1,6 @@
 package lj.vgm.tileentity;
 
+import net.minecraft.nbt.NBTTagCompound;
 import lj.vgm.block.BlockVoidLamp;
 import lj.vgm.core.util.ConduitState;
 
@@ -40,5 +41,17 @@ public class TileEntityVoidLamp extends VoidEnergyConductor {
     
     private boolean isLit() {
         return timer > 0;
+    }
+    
+    @Override
+    public void readFromNBT(NBTTagCompound nbtTagCompound) {
+        super.readFromNBT(nbtTagCompound);
+        timer = nbtTagCompound.getInteger("Timer");
+    }
+    
+    @Override
+    public void writeToNBT(NBTTagCompound nbtTagCompound) {
+        super.writeToNBT(nbtTagCompound);
+        nbtTagCompound.setInteger("Timer", timer);
     }
 }
