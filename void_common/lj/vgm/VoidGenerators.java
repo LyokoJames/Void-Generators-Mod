@@ -8,7 +8,6 @@ import lj.vgm.item.ModItems;
 import lj.vgm.lib.Reference;
 import lj.vgm.network.PacketHandler;
 import lj.vgm.recipes.CraftingRecipes;
-import lj.vgm.tileentity.ModTileEntities;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.Init;
@@ -41,7 +40,7 @@ public class VoidGenerators {
     public void init(FMLInitializationEvent event) {
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
         CraftingRecipes.init();
-        ModTileEntities.init();
+        proxy.registerTileEntities();
         proxy.initRenderersAndTextures();
         
     }
