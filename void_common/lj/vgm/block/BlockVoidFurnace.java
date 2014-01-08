@@ -45,7 +45,7 @@ public class BlockVoidFurnace extends ContainerVGM {
 
                 if (te != null) {
                     if (te instanceof TileEntityVoidFurnace)
-                    player.openGui(VoidGenerators.instance, GuiIds.VOID_FURNACE, world, x, y, z);
+                    player.openGui(VoidGenerators.instance, GuiIds.GUI_VOID_FURNACE, world, x, y, z);
                 }
             }
 

@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import lj.vgm.block.BlockVoidFurnace;
 import lj.vgm.core.util.ConduitState;
+import lj.vgm.lib.Numbers;
 import lj.vgm.lib.PacketStrings;
 import lj.vgm.lib.Reference;
 import lj.vgm.lib.Strings;
@@ -18,10 +19,14 @@ import lj.vgm.network.PacketHandler;
 
 public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInventory {
 
+    //TODO Abstract generic IInventory code to a separate class to be extended from
+    
+    //TODO change to two
     public static final int INVENTORY_SIZE = 3;
     
     private ItemStack[] inventory;
     
+    //TODO Get rid of
     public static final int FUEL_INVENTORY_INDEX = 0;
     public static final int INPUT_INVENTORY_INDEX = 1;
     public static final int OUTPUT_INVENTORY_INDEX = 2;
@@ -36,8 +41,7 @@ public class TileEntityVoidFurnace extends VoidEnergyConductor implements IInven
     public int currentCookTime = 0;
     
     public TileEntityVoidFurnace() {
-        //TODO Remove Magic Number
-        super(64);
+        super(Numbers.MAXIMUM_VOID_FURNACE_ENERGY);
         for (int i = 0; i < 6; i++) {
             conduits[i].state = ConduitState.INPUT;
         }

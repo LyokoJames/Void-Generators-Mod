@@ -1,6 +1,8 @@
 package lj.vgm.lib;
 
 public class Strings {
+    
+    public static final String VOID_GENERATOR_UNLOC_NAME = "voidGenerator";
 
     public static final String ITEM_CAPSULE_UNLOC_NAME = "itemCapsule";
     
@@ -53,6 +55,8 @@ public class Strings {
 
 
     public static final String[] VOID_FURNACE_TEXTURE_NAMES = {"voidFurnaceTop", "voidFurnaceSide","voidFurnaceLit", "voidFurnaceUnlit"};
+
+    public static final String VOID_GENERATOR_TILE_ENTITY = "voidGeneratorTileEntity";
     
     public static String[] VOID_LAMP_TEXTURE_NAMES = {"voidLampUnlit", "voidLampLit"};
 }

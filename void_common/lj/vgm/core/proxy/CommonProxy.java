@@ -7,6 +7,7 @@ import lj.vgm.lib.Strings;
 import lj.vgm.tileentity.TileEntityVoidCollector;
 import lj.vgm.tileentity.TileEntityVoidConduit;
 import lj.vgm.tileentity.TileEntityVoidFurnace;
+import lj.vgm.tileentity.TileEntityVoidGenerator;
 import lj.vgm.tileentity.TileEntityVoidLamp;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -21,7 +22,7 @@ public class CommonProxy implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world,
             int x, int y, int z) {
-        if (ID == GuiIds.VOID_FURNACE) {
+        if (ID == GuiIds.GUI_VOID_FURNACE) {
             TileEntityVoidFurnace voidFurnaceTe = (TileEntityVoidFurnace) world.getBlockTileEntity(x, y, z);
             return new ContainerVoidFurnace(player.inventory, voidFurnaceTe);
         }
@@ -31,7 +32,7 @@ public class CommonProxy implements IGuiHandler {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world,
             int x, int y, int z) {
-        if (ID == GuiIds.VOID_FURNACE) {
+        if (ID == GuiIds.GUI_VOID_FURNACE) {
             TileEntityVoidFurnace voidFurnaceTe = (TileEntityVoidFurnace) world.getBlockTileEntity(x, y, z);
             return new GuiVoidFurnace(player.inventory, voidFurnaceTe);
         }
@@ -43,5 +44,6 @@ public class CommonProxy implements IGuiHandler {
         GameRegistry.registerTileEntity(TileEntityVoidCollector.class, Strings.VOID_COLLECTOR_TILE_ENTITY);
         GameRegistry.registerTileEntity(TileEntityVoidLamp.class, Strings.VOID_LAMP_TILE_ENTITY);
         GameRegistry.registerTileEntity(TileEntityVoidFurnace.class, Strings.VOID_FURNACE_TILE_ENTITY);
+        GameRegistry.registerTileEntity(TileEntityVoidGenerator.class, Strings.VOID_GENERATOR_TILE_ENTITY);
     }
 }

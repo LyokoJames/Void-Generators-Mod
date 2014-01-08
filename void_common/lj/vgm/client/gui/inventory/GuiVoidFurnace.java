@@ -9,7 +9,9 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class GuiVoidFurnace extends GuiContainer {
-
+    
+    //TODO Change Void Furnace GUI code and Texture to remove fuel slot
+    
     private TileEntityVoidFurnace voidFurnaceTE;
     
     public GuiVoidFurnace(InventoryPlayer inventoryPlayer, TileEntityVoidFurnace voidFurnace) {
@@ -20,7 +22,7 @@ public class GuiVoidFurnace extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int y) {
-        //TODO stuff
+        //TODO Foreground Layer by copying from regular Furnace and/or pahimar
     }
     
     @Override
