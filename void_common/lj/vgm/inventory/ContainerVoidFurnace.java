@@ -17,9 +17,6 @@ public class ContainerVoidFurnace extends Container {
     public ContainerVoidFurnace(InventoryPlayer inventoryPlayer, TileEntityVoidFurnace tileEntityVoidFurnace){
         voidFurnaceTE = tileEntityVoidFurnace;
         
-     // Add the fuel slot to the container
-        this.addSlotToContainer(new Slot(voidFurnaceTE, TileEntityVoidFurnace.FUEL_INVENTORY_INDEX, 56, 53));
-
         // Add the input slot to the container
         this.addSlotToContainer(new Slot(voidFurnaceTE, TileEntityVoidFurnace.INPUT_INVENTORY_INDEX, 56, 17));
 
