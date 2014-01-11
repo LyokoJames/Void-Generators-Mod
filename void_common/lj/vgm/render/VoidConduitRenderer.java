@@ -2,6 +2,7 @@ package lj.vgm.render;
 
 import org.lwjgl.opengl.GL11;
 
+import lj.vgm.core.util.RenderHelper;
 import lj.vgm.lib.RenderIds;
 import lj.vgm.tileentity.TileEntityVoidConduit;
 import net.minecraft.block.Block;
@@ -161,18 +162,21 @@ public class VoidConduitRenderer implements
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z,
             Block block, int modelId, RenderBlocks renderer) {
         
-        //TODO insert brightness correction methods
-        //TODO perhaps add tesselator methods to mimic renderInventoryBlock
+        //TODO Maybe get ambient occlusion working but probably not
+        //TODO perhaps add tessellator normal and (start)draw(ingquad) methods to mimic renderInventoryBlock
         
         TileEntityVoidConduit te = (TileEntityVoidConduit) world.getBlockTileEntity(x, y, z);
             te = (TileEntityVoidConduit) world.getBlockTileEntity(x, y, z);
             //if (!te.initialSync) te.clientRequestServerSync();
         
+        Tessellator tessellator = Tessellator.instance; //Experimental
+        RenderHelper helper = new RenderHelper(x,y,z,tessellator,renderer,block);
+            
         //Render Center Block
         renderer.overrideBlockTexture = block.getIcon(0, 0);
         renderer.setRenderBounds(5d/16d, 5d/16d, 5d/16d,
                 11d/16d, 11d/16d, 11d/16d);
-        renderer.renderStandardBlock(block, x, y, z);
+        renderer.renderStandardBlockWithColorMultiplier(block, x, y, z,1,1,1);
         
         if (te.conduits[0].state.isConnected()) {
         //Render Down Conduit
@@ -180,7 +184,7 @@ public class VoidConduitRenderer implements
                 block.getIcon(0, 1) : block.getIcon(0, 2);
         renderer.setRenderBounds(5d/16d, 0d, 5d/16d,
                 11d/16d, 5d/16d, 11d/16d);
-        renderer.renderStandardBlock(block, x, y, z);
+        renderer.renderStandardBlockWithColorMultiplier(block, x, y, z,1,1,1);
         }
         
         if (te.conduits[1].state.isConnected()) {
@@ -189,7 +193,7 @@ public class VoidConduitRenderer implements
                 block.getIcon(0, 1) : block.getIcon(0, 2);
         renderer.setRenderBounds(5d/16d, 11d/16d, 5d/16d,
                 11d/16d, 1d, 11d/16d);
-        renderer.renderStandardBlock(block, x, y, z);
+        renderer.renderStandardBlockWithColorMultiplier(block, x, y, z,1,1,1);
         }
         
         if (te.conduits[2].state.isConnected()) {
@@ -199,15 +203,17 @@ public class VoidConduitRenderer implements
         //Render East Separately
         renderer.overrideBlockTexture = te.conduits[2].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 4);
-        renderer.renderFaceXPos(block, x, y, z, block.getIcon(0, 0));
+        helper.renderXPosColorMultiplier();
+                
         //Render Rest of Faces
         renderer.overrideBlockTexture = te.conduits[2].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 2);
-        renderer.renderFaceYPos(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceZPos(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceXNeg(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceYNeg(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceZNeg(block, x, y, z, block.getIcon(0, 0));
+        
+        helper.renderXNegColorMultiplier();
+        helper.renderYNegColorMultiplier();
+        helper.renderYPosColorMultiplier();
+        helper.renderZNegColorMultiplier();
+        helper.renderZPosColorMultiplier();
         }
         
         if (te.conduits[3].state.isConnected()) {
@@ -217,15 +223,16 @@ public class VoidConduitRenderer implements
         //Render East Separately
         renderer.overrideBlockTexture = te.conduits[3].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 4);
-        renderer.renderFaceXPos(block, x, y, z, block.getIcon(0, 0));
+        helper.renderXPosColorMultiplier();
         //Render Rest of Faces
         renderer.overrideBlockTexture = te.conduits[3].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 2);
-        renderer.renderFaceYPos(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceZPos(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceXNeg(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceYNeg(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceZNeg(block, x, y, z, block.getIcon(0, 0));
+        
+        helper.renderXNegColorMultiplier();
+        helper.renderYNegColorMultiplier();
+        helper.renderYPosColorMultiplier();
+        helper.renderZNegColorMultiplier();
+        helper.renderZPosColorMultiplier();
         }
         
         if (te.conduits[4].state.isConnected()) {
@@ -235,15 +242,17 @@ public class VoidConduitRenderer implements
         //Render North Seperately
         renderer.overrideBlockTexture = te.conduits[4].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 4);
-        renderer.renderFaceZNeg(block, x, y, z, block.getIcon(0, 0));
+        helper.renderZNegColorMultiplier();
         //Render Rest of Faces
         renderer.overrideBlockTexture = te.conduits[4].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 2);
-        renderer.renderFaceYPos(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceZPos(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceXNeg(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceYNeg(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceXPos(block, x, y, z, block.getIcon(0, 0));
+                
+                
+        helper.renderXPosColorMultiplier();
+        helper.renderXNegColorMultiplier();
+        helper.renderYNegColorMultiplier();
+        helper.renderYPosColorMultiplier();
+        helper.renderZPosColorMultiplier();
         }
         
         if (te.conduits[5].state.isConnected()) {
@@ -253,20 +262,21 @@ public class VoidConduitRenderer implements
       //Render North Seperately
         renderer.overrideBlockTexture = te.conduits[5].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 4);
-        renderer.renderFaceZNeg(block, x, y, z, block.getIcon(0, 0));
+        helper.renderZNegColorMultiplier();
         //Render Rest of Faces
         renderer.overrideBlockTexture = te.conduits[5].state.isInput() ? 
                 block.getIcon(0, 1) : block.getIcon(0, 2);
-        renderer.renderFaceYPos(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceZPos(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceXNeg(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceYNeg(block, x, y, z, block.getIcon(0, 0));
-        renderer.renderFaceXPos(block, x, y, z, block.getIcon(0, 0));
+        helper.renderXPosColorMultiplier();
+        helper.renderXNegColorMultiplier();
+        helper.renderYNegColorMultiplier();
+        helper.renderYPosColorMultiplier();
+        helper.renderZPosColorMultiplier();
         }
         renderer.clearOverrideBlockTexture();
         return true;
     }
 
+    
     @Override
     public boolean shouldRender3DInInventory() {
         // TODO Auto-generated method stub
